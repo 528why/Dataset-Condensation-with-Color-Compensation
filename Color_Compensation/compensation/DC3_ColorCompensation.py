@@ -2,7 +2,7 @@ import os
 from torch.utils.data import Dataset
 from PIL import Image
 import random
-from augment.utils import Utils
+from compensation.utils import Utils
 
 
 class DC3_ColorCompensation(Dataset):
@@ -22,15 +22,12 @@ class DC3_ColorCompensation(Dataset):
     def generate_compensated_images(self):
         compensated_data = []
 
-        base_directory = './DC3/DC3_ColorCompensation/'
-        original_resized_dir = os.path.join(base_directory, 'original_resized')
-        generated_dir = os.path.join(base_directory, 'generated')
+        base_directory = '../../DC3_ColorCompensation/' # Relative path to DC3_ColorCompensation folder under DC3
         concatenated_dir = os.path.join(base_directory, 'concatenated')
         compensated_dir = os.path.join(base_directory, f'compensated_{self.dataset_name}_{self.ipc}')
-        prompt_nums = len(self.prompts)
+  
         # Ensure these directories exist
-        os.makedirs(original_resized_dir, exist_ok=True)
-        os.makedirs(generated_dir, exist_ok=True)
+
         os.makedirs(concatenated_dir, exist_ok=True)
         os.makedirs(compensated_dir, exist_ok=True)
         
@@ -66,14 +63,12 @@ class DC3_ColorCompensation(Dataset):
             img_filename = os.path.basename(img_path)
 
             label_dirs = {dtype: os.path.join(base_directory, dtype, str(label)) for dtype in
-                          ['original_resized', 'generated', 'concatenated', 'compensated']}
+                          ['concatenated', 'compensated']}
 
-            label_dirs['compensated'] = os.path.join(base_directory, f'compensated_{self.combine_mode}_{prompt_nums}_{self.dataset_name}_{self.ipc}', str(label))
+            label_dirs['compensated'] = os.path.join(base_directory, f'compensated_{self.combine_mode}_{10}_{self.dataset_name}_{self.ipc}', str(label))
 
             for dir_path in label_dirs.values():
                 os.makedirs(dir_path, exist_ok=True)
-
-            original_img.save(os.path.join(label_dirs['original_resized'], img_filename))
 
             
             stepth = 2
@@ -81,7 +76,7 @@ class DC3_ColorCompensation(Dataset):
             cold_prompt = ["rainy", "snowy", "frozen lake", "infrared","underwater"]
             selected_warm_prompt = random.sample(warm_prompt, 1)
             selected_cold_prompt = random.sample(cold_prompt, 1)
-
+            selected_prompts = selected_warm_prompt + selected_cold_prompt
             
 
             compensated_images = []

@@ -29,10 +29,9 @@ def parse_arguments():
 def main():
 
     args = parse_arguments()
-    prompts = args.prompts.split(',')  # This will give you a list of prompts
 
     # Initialize the model
-    model_id = "/data/modelscope/hub/AI-ModelScope/instruct-pix2pix"
+    model_id = "/data/modelscope/hub/AI-ModelScope/instruct-pix2pix" # need to change
     model_initialization = ModelHandler(model_id=model_id, device='cuda')
 
     train_dataset, idx_to_class, label_map = get_dataset(args)

@@ -42,7 +42,6 @@ def CIFAR10(data_path):
     std = [0.2470, 0.2435, 0.2616]
 
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean=mean, std=std)])
-    #dst_train = datasets.CIFAR10(data_path, train=True, download=True, transform=transform)
     dst_train = ImageFolderWithIndex(root='/data/cifar10/train_by_class', transform=transform)
     dst_test = datasets.CIFAR10(data_path, train=False, download=True, transform=transform)
     class_names = dst_train.classes

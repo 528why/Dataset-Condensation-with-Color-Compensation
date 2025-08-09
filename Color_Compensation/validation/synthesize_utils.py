@@ -237,7 +237,7 @@ def load_model(model_name="resnet18", dataset="cifar10", pretrained=True, classe
             "cifar100",
         ]:
             checkpoint = torch.load(
-                    f"/data/{dataset}_{model_name}.pth", map_location="cpu"
+                    f"/data/{dataset}_{model_name}.pth", map_location="cpu" # need to change
                 )
             model.load_state_dict(checkpoint["model"])
         elif dataset in ["imagenet-1k"]:

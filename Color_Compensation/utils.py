@@ -62,9 +62,8 @@ def get_dataset(args):
     if args.dataset in ["imagenet",  "tinyimagenet", "cifar10", "cifar100", "syn_imagenette"]:
         train_dataset = datasets.ImageFolder(root=args.train_dir)
         idx_to_class = {v: k for k, v in train_dataset.class_to_idx.items()}
-        if args.selection in ['DQ', 'Kmeans_SS','Kmeans_1','Kmeans_5','Kmeans_10','Kmeans_20','Random'] :
-            indices = np.load(args.indices_path)
-            train_dataset = SubsetWithSamples(train_dataset, indices)
+        indices = np.load(args.indices_path)
+        train_dataset = SubsetWithSamples(train_dataset, indices)
         return train_dataset, idx_to_class, None
     elif args.dataset == 'imagenette' or args.dataset == "imagenet-woof":
         if args.dataset == 'imagenette':
@@ -78,9 +77,8 @@ def get_dataset(args):
         # 构建 label_map，用于将原始标签映射到子集标签
         label_map = {orig_idx: new_idx for new_idx, orig_idx in enumerate(sub_imagenet_indices)}
         train_dataset = CustomDataset(train_samples, transform=None, label_map=label_map)
-        if args.selection in ['DQ', 'Kmeans_SS','Kmeans_1','Kmeans_5','Kmeans_10','Kmeans_20','Random'] :
-            indices = np.load(args.indices_path)
-            train_dataset = SubsetWithSamples(train_dataset, indices)
-            print("get dataset:",len(train_dataset))
+        indices = np.load(args.indices_path)
+        train_dataset = SubsetWithSamples(train_dataset, indices)
+        print("get dataset:",len(train_dataset))
         print("label_map",label_map)
         return train_dataset, idx_to_class, label_map

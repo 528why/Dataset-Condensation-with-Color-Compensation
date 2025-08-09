@@ -36,11 +36,11 @@ def TransformerBuilder(arch: str, num_classes: int, record_embedding: bool = Fal
                           record_embedding=record_embedding, no_grad=no_grad)
 
     if pretrained:
-        pretrained_model_path = '/home/suduo24-postdoc/workspace/why/Dataset_Quantization/dq/nets/vit_base_patch16_224.augreg2_in21k_ft_in1k/pytorch_model.bin'
+        pretrained_model_path = './dq/nets/vit_base_patch16_224.augreg2_in21k_ft_in1k/pytorch_model.bin' # need to change
 
-        # 尝试加载预训练模型的权重
+        
         try:
-            checkpoint = torch.load(pretrained_model_path, map_location='cpu')  # 如果是 GPU 环境，可能需要指定 map_location
+            checkpoint = torch.load(pretrained_model_path, map_location='cpu') 
             net.load_state_dict(checkpoint, strict=False)
             print(f"Successfully loaded pretrained model from {pretrained_model_path}")
         except FileNotFoundError:

@@ -1,9 +1,10 @@
 # DC3: Dataset Condensation with Color Compensation
+[![arXiv](https://img.shields.io/badge/arXiv-2508.01139-b31b1b.svg)](https://arxiv.org/abs/2508.01139v1)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://528why.github.io/DC3-Page/)
 
-Official implementation of "[Dataset Condensation with Color Compensation](https://arxiv.org/abs/2508.01139v1)".
+
 ![](misc/DC3-Fig3V2.png)
-
-
+This is the DC3 framework we proposed. For more details, please see the [paper](https://arxiv.org/abs/2508.01139v1).
 
 <!-- ## 📖 Project Overview
 
@@ -19,13 +20,14 @@ The FID results prove that training networks with our high-quality datasets is f
 
 ## 🎯 Key Contributions
 
-- **Universal DC3 Framework**: We propose DC3 that utilizes the compression ability as long as the generalization from different dataset condensation methods. It is a universal method that is adaptive to datasets of various scales and resolutions.
+- We propose DC3 that utilizes the compression ability as long as the generalization from different dataset condensation methods. It is a universal method that is adaptive to datasets of various scales and resolutions.
 
-- **Color Compensation Mechanism**: Due to **Color Homogenization** inherent in pixel-level optimization methods, we employ the clustering-based quantization method to get rid of this issue and propose the diffusion-based **Color Compensation** method to enhance the information diversity of condensed images.
+- Due to **Color Homogenization** inherent in pixel-level optimization methods, we employ the clustering-based quantization method to get rid of this issue and propose the diffusion-based **Color Compensation** method to enhance the information diversity of condensed images.
 
-- **LVM Fine-tuning Performance**: In addition to the classification task, DC3 also dives into improving the fine-tuning performance of large vision models (LVMs). The FIDs on the fine-tuned stable diffusion and DiT demonstrate that the information is compressed and preserved by DC3.
+- In addition to the classification task, DC3 also dives into improving the fine-tuning performance of large vision models (LVMs). The FIDs on the fine-tuned stable diffusion and DiT demonstrate that the information is compressed and preserved by DC3.
 
-- **Superior Performance**: The experimental results, especially on the hard-to-classify datasets, demonstrate that DC3 achieves the superior performance of dataset condensation and enhances image colorfulness.
+- The experimental results, especially on the hard-to-classify datasets, demonstrate that DC3 achieves the superior performance of dataset condensation and enhances image colorfulness.
+
 
 ## 🏗️ Project Structure
 
@@ -49,6 +51,7 @@ DC3/
 ├── requirements.txt                      # Dependency package list
 └── README.md                             # Project documentation
 ```
+
 
 ## 🚀 Quick Start
 
@@ -77,10 +80,12 @@ pip install -r requirements.txt
 
 ## 📋 Usage
 
+**Pre-trained Model Loading Paths**: Please search for "need to change" in the codebase to find and replace the pre-trained model loading addresses.
+
 ### 1. Submodular Sampling Stage
 
 ```bash
-cd Submodular_Sampling
+cd ./Submodular_Sampling
 
 # Step 1: Generate clusters using K-means
 python get_bins.py \
@@ -115,7 +120,7 @@ python submodular_sampling.py \
 ### 2. Color Compensation Stage
 
 ```bash
-cd Color_Compensation
+cd ../Color_Compensation
 
 # Run color compensation
 python3 main.py \
@@ -123,13 +128,16 @@ python3 main.py \
     --dataset cifar10 \
     --ipc 10 \
     --combine_mode gradient \
-    --indices_path "./DC3/Submodular_Sampling/submodular_sampler/cifar10_k_010_ipc_10/sample.npy"
+    --indices_path "../Submodular_Sampling/submodular_sampler/cifar10_k_010_ipc_10/sample.npy"
+
+# Follow RDED format for dataset storage structure
+python get_dataset_by_class.py --dataset train  --ipc 10 --subset cifar10 --combine_mode gradient 
 ```
 
 ### 3. Validation Stage
 
 ```bash
-cd Color_Compensation/validation
+cd ./validation
 
 # Validate the condensed dataset
 python main.py \
@@ -141,7 +149,7 @@ python main.py \
     --ipc 10 \
     --stud-name "resnet18_modified" \
     --re-epochs 2000 \
-    --syn_data_path "/data/DC3/cifar10_gradient/ipc10_train_by_class" \
+    --syn_data_path "../../DC3_ColorCompensation/ipc10_train_by_class" \
     --val_dir "/data/cifar10/validation_by_class"
 ```
 

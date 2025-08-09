@@ -14,6 +14,9 @@ import dq.methods as methods
 import dq.datasets as datasets
 from diffusers import StableDiffusionPipeline 
 import torch.nn as nn
+
+
+# Need to modify the training set path in files under ./dq/datasets, training set processing follows RDED paper format
 def main():
     parser = argparse.ArgumentParser(description='Parameter Processing')
 
@@ -62,7 +65,7 @@ def main():
     # Get embeddings from model and apply DBSCAN clustering
     
     dst_train_loader = torch.utils.data.DataLoader(dst_train, batch_size=args.batch, shuffle=False)
-    diffusion_checkpoints_path = "/data/stablediffusion/checkpoints/stable-diffusion-v1-5"
+    diffusion_checkpoints_path = "/data/stablediffusion/checkpoints/stable-diffusion-v1-5" #need to change
     pipe = StableDiffusionPipeline.from_pretrained(diffusion_checkpoints_path, torch_dtype=torch.float16)
     pipe = pipe.to(args.device)
     pipe = pipe.to(torch.float16)

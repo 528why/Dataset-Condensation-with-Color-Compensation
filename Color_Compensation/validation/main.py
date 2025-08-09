@@ -30,13 +30,14 @@ from utils import (
     AverageMeter,
     accuracy,
     get_parameters,
-    #TinyImageNetDataset,
 )
+
+# Need to modify the checkpoint path in ./synthesize_utils.py to load the teacher model from RDED paper
+
 
 
 sharing_strategy = "file_system"
 torch.multiprocessing.set_sharing_strategy(sharing_strategy)
-
 
 def set_worker_sharing_strategy(worker_id: int) -> None:
     torch.multiprocessing.set_sharing_strategy(sharing_strategy)
@@ -66,10 +67,6 @@ def main_worker(args):
     )
     teacher_model = torch.nn.DataParallel(teacher_model).cuda()
     student_model = torch.nn.DataParallel(student_model).cuda()
-    # device_ids = [1,2,3,4,5,6,7]
-    # # 使用 DataParallel 将模型分配到指定 GPU
-    # teacher_model = torch.nn.DataParallel(teacher_model, device_ids=device_ids).cuda()
-    # student_model = torch.nn.DataParallel(student_model, device_ids=device_ids).cuda()
 
     teacher_model.eval()
     student_model.train()
