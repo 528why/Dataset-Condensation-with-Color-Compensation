@@ -4,7 +4,7 @@
 
 
 ![](misc/DC3-Fig3V2.png)
-This is the DC3 framework we proposed. For more details, please see the [paper](https://arxiv.org/abs/2508.01139v1).
+This is the DC3 framework we proposed. For more details, please see the [paper](https://arxiv.org/abs/2508.01139).
 
 <!-- ## 📖 Project Overview
 
