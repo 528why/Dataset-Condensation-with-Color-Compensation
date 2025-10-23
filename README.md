@@ -1,4 +1,4 @@
-# DC3: Dataset Condensation with Color Compensation
+# DC3: Dataset Condensation with Color Compensation (TMLR)
 [![arXiv](https://img.shields.io/badge/arXiv-2508.01139-b31b1b.svg)](https://arxiv.org/abs/2508.01139v1)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://528why.github.io/DC3-Page/)
 
@@ -191,7 +191,7 @@ If you use DC3 in your research, please cite our paper:
 @article{wu2025dataset,
   title={Dataset Condensation with Color Compensation},
   author={Wu, Huyu and Su, Duo and Hou, Junjie and Li, Guang},
-  journal={arXiv preprint arXiv:2508.01139},
+  journal={Transactions on Machine Learning Research},
   year={2025}
 }
 ```
