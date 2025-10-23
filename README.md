@@ -65,8 +65,8 @@ DC3/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/DC3.git
-cd DC3
+git clone https://github.com/528why/Dataset-Condensation-with-Color-Compensation.git
+cd Dataset-Condensation-with-Color-Compensation
 
 # Create virtual environment
 python -m venv dc3_env
